@@ -1,0 +1,28 @@
+{
+  "name": "vite-lesson",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/parser": "^7.20.15",
+    "chokidar": "^3.5.3",
+    "compiler-sfc": "^8.0.11",
+    "es-module-lexer": "^1.1.1",
+    "hash-sum": "^2.0.0",
+    "koa": "^2.14.1",
+    "koa-static": "^5.0.0",
+    "magic-string": "^0.27.0",
+    "mini-svg-data-uri": "^1.4.4",
+    "resolve": "^1.22.1",
+    "resolve-from": "^5.0.0",
+    "vue": "^3.2.47",
+    "ws": "^8.12.0"
+  }
+}

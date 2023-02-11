@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue</title>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+    <script type="module">
+      const ws = new WebSocket(`ws://${location.host}`)
+
+      ws.addEventListener('message', ({ data }) => {
+        const { type, path, id, index } = JSON.parse(data)
+        switch (type) {
+            case 'connected':
+              console.info('[vite] connected')
+              break
+            case 'reload': 
+              import(`${path}?t=${Date.now()}`).then((m) => {
+                __VUE_HMR_RUNTIME__.reload(path, m.default)
+                console.log(`[vite][hmr] ${path} reloaded.`)
+              })
+              break
+            case 'rerender':
+              import(`${path}?type=template&t=${Date.now()}`).then((m) => {
+                __VUE_HMR_RUNTIME__.rerender(path, m.render)
+                console.log(`[vite][hmr] ${path} template updated.`)
+              })
+              break
+            case 'style-update':
+              console.log(`[vite] ${path} style${index > 0 ? `#${index}` : ``} updated.`)
+              import(`${path}?type=style&index=${index}&t=${Date.now()}`)
+              break
+            case 'style-remove':
+              const style = document.getElementById(`vue-style-${id}`)
+              if (style) {
+                style.parentNode.removeChild(style)
+              }
+              break
+            case 'full-reload':
+              window.location.reload()
+              console.info('wow! has to full-reload')
+              break  
+        }
+      }, true)
+    </script>
+  </body>
+</html>
